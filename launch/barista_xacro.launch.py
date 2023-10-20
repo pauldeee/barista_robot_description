@@ -9,20 +9,15 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import ThisLaunchFileDir
 from launch.actions import TimerAction
 
-# this is the function launch  system will look for
-
 
 def generate_launch_description():
 
-    urdf_file = 'barista_robot_urdf.urdf'
-    # xacro_file = "box_bot.xacro"
     package_description = "barista_robot_description"
+    xacro_file_path = os.path.join(get_package_share_directory(
+        package_description), "xacro", "barista_robot_model.urdf.xacro")
 
-    robot_desc_path = os.path.join(get_package_share_directory(
-        package_description), "urdf", urdf_file)
-
-    with open(robot_desc_path, 'r') as file:
-        robot_desc_content = file.read()
+    # use Command to call xacro and convert the .xacro file to .urdf format.
+    robot_desc_content = Command(['xacro ', xacro_file_path])
 
     # gazebo
     gazebo_ros_package_dir = get_package_share_directory('gazebo_ros')
@@ -47,10 +42,9 @@ def generate_launch_description():
         name='joint_state_publisher'
     )
 
-    # RVIZ Configuration
+    # rviz conf
     rviz_config_dir = os.path.join(get_package_share_directory(
         package_description), 'rviz', 'rviz.rviz')
-
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -60,14 +54,14 @@ def generate_launch_description():
         arguments=['-d', rviz_config_dir])
 
     # spawn
-
     spawn_robot = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
         name='spawn_entity',
         output='screen',
-        arguments=['-entity', 'barist_robot', '-topic', '/robot_description']
+        arguments=['-entity', 'barista_robot', '-topic', '/robot_description']
     )
+
     # delay spawn into gazebo
     delay_spawn = TimerAction(period=10.0, actions=[spawn_robot])
 

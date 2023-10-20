@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="barista_robot">
+
+    <xacro:include filename="$(find barista_robot_description)/xacro/materials.xacro"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/wheel.xacro"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/standoff.xacro"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/cup_holder_tray.xacro"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/laser_scanner.xacro"/>
+    <xacro:include filename="$(find barista_robot_description)/xacro/caster.xacro"/>
+    <!-- gazebo properties -->
+    <xacro:include filename="$(find barista_robot_description)/xacro/barista_robot_model.gazebo.xacro"/>
+    <xacro:gazebo_elements/>
+    <!-- wheels -->
+    <xacro:property name="wheel_length" value="0.0206"/>
+    <xacro:property name="wheel_radius" value="0.0352"/>
+    <!-- standoffs -->
+    <xacro:property name="standoff_length" value="0.220"/>
+    <xacro:property name="standoff_radius" value="0.01"/>
+    <!-- cup holder -->
+    <xacro:property name="cup_holder_length" value="0.09"/>
+    <xacro:property name="cup_holder_radius" value="0.16"/>
+    <!-- casters -->
+    <xacro:property name="caster_length" value="0.0352"/>
+    <xacro:property name="caster_radius" value="0.01"/>
+    <!-- laser -->
+    <xacro:arg name="include_laser" default="true"/>
+
+    <!-- Base link -->
+    <link name="base_link">
+        <collision>
+            <origin xyz="0 0 0.0775"/>
+            <geometry>
+                <cylinder length="0.155" radius="0.178" />
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0"/>
+            <mass value="5.0"/>
+            <inertia ixx="0.1765" ixy="0" ixz="0" iyy="0.1765" iyz="0" izz="0.044"/>
+        </inertial>
+
+        <visual>
+            <origin xyz="0 0 0.0775"/>
+            <geometry>
+                <cylinder length="0.155" radius="0.178"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <!-- left wheel -->
+    <xacro:wheel wheel_name="left_wheel" wheel_length="${wheel_length}" wheel_radius="${wheel_radius}" />
+    <joint name="base_link_left_wheel_joint" type="continuous">
+        <axis xyz="0 1 0" rpy="0 0 0" />
+        <origin xyz="0 0.15 0.0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="left_wheel" />
+    </joint>
+
+    <!-- right wheel -->
+    <xacro:wheel wheel_name="right_wheel" wheel_length="${wheel_length}" wheel_radius="${wheel_radius}" />
+    <joint name="base_link_right_wheel_joint" type="continuous">
+        <axis xyz="0 1 0" rpy="0 0 0" />
+        <origin xyz="0 -0.15 0.0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="right_wheel" />
+    </joint>
+
+    <!-- left-front standoff -->
+    <xacro:standoff standoff_name="left_front_standoff" standoff_length="${standoff_length}" standoff_radius="${standoff_radius}" />
+    <joint name="base_link_left_front_standoff_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.025 0.125 0.155" />
+        <parent link="base_link" />
+        <child link="left_front_standoff" />
+    </joint>
+
+
+    <!-- left-rear standoff -->
+    <xacro:standoff standoff_name="left_rear_standoff" standoff_length="${standoff_length}" standoff_radius="${standoff_radius}"/>
+    <joint name="base_link_left_rear_standoff_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.025 0.125 0.155" />
+        <parent link="base_link" />
+        <child link="left_rear_standoff" />
+    </joint>
+
+    <!-- right-front standoff -->
+    <xacro:standoff standoff_name="right_front_standoff" standoff_length="${standoff_length}" standoff_radius="${standoff_radius}" />
+    <joint name="base_link_right_front_standoff_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.025 -0.125 0.155" />
+        <parent link="base_link" />
+        <child link="right_front_standoff" />
+    </joint>
+
+    <!-- right-rear standoff -->
+    <xacro:standoff standoff_name="right_rear_standoff" standoff_length="${standoff_length}" standoff_radius="${standoff_radius}" />
+    <joint name="base_link_right_rear_standoff_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.025 -0.125 0.155" />
+        <parent link="base_link" />
+        <child link="right_rear_standoff" />
+    </joint>
+
+    <!-- cup holder -->
+    <xacro:cup_holder_tray tray_name="cup_holder" tray_length="${cup_holder_length}" tray_radius="${cup_holder_radius}" />
+    <joint name="base_link_cup_holder_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0.42" />
+        <parent link="base_link" />
+        <child link="cup_holder" />
+    </joint>
+
+
+    <!-- front caster -->
+    <xacro:caster caster_name="front_caster" caster_length="${caster_length}" caster_radius="${caster_radius}" />
+    <joint name="base_link_front_caster_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.125 0 0" />
+        <parent link="base_link" />
+        <child link="front_caster" />
+    </joint>
+
+    <!-- rear caster -->
+    <xacro:caster caster_name="rear_caster" caster_length="${caster_length}" caster_radius="${caster_radius}" />
+    <joint name="base_link_rear_caster_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.125 0 0" />
+        <parent link="base_link" />
+        <child link="rear_caster" />
+    </joint>
+
+    <!-- laser -->
+    <xacro:if value="$(arg include_laser)">
+        <xacro:laser_scanner laser_scanner_name="laser"/>
+        <joint name="base_link_laser_joint" type="fixed">
+            <origin rpy="0 0 0" xyz="0 0 0.155" />
+            <parent link="base_link" />
+            <child link="laser" />
+        </joint>
+    </xacro:if>
+
+
+</robot>

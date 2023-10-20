@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <!-- wheel macro -->
+    <xacro:macro name="caster" params="caster_name caster_length caster_radius">
+        <link name="${caster_name}">
+            <collision>
+                <origin xyz="0 0 -0.0176" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder length="${caster_length}" radius="${caster_radius}" />
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="1" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.0001274" ixy="0.0" ixz="0.0" iyy="0.0001274" iyz="0.0" izz="0.00005" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0 0 -0.0176" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder length="${caster_length}" radius="${caster_radius}" />
+                </geometry>
+                <material name="gray"/>
+            </visual>
+        </link>
+    </xacro:macro>
+
+</robot>

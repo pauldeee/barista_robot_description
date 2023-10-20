@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="gazebo_elements">
+
+        <!-- Gazebo Properties -->
+        <gazebo reference="base_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+        <gazebo reference="cup_holder">
+            <material>Gazebo/Blue</material>
+        </gazebo>
+
+        <gazebo reference="left_wheel">
+            <material>Gazebo/Red</material>
+            <mu1>1</mu1>
+            <mu2>1</mu2>
+        </gazebo>
+
+        <gazebo reference="right_wheel">
+            <material>Gazebo/Red</material>
+            <mu1>1</mu1>
+            <mu2>1</mu2>
+        </gazebo>
+
+        <gazebo reference="front_caster">
+            <mu1>0</mu1>
+            <mu2>0</mu2>
+            <material>Gazebo/Gray</material>
+        </gazebo>
+
+        <gazebo reference="rear_caster">
+            <mu1>0</mu1>
+            <mu2>0</mu2>
+            <material>Gazebo/Gray</material>
+        </gazebo>
+
+        <!-- Gazebo Plugins -->
+        <!-- Robot differential driver -->
+        <gazebo>
+            <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+                <update_rate>20</update_rate>
+
+                <left_joint>base_link_left_wheel_joint</left_joint>
+                <right_joint>base_link_right_wheel_joint</right_joint>
+
+                <wheel_separation>0.3</wheel_separation>
+                <wheel_diameter>0.0352</wheel_diameter>
+                <!-- limits -->
+                <max_wheel_torque>1.0</max_wheel_torque>
+                <max_wheel_acceleration>2.0</max_wheel_acceleration>
+                <!-- odom -->
+                <publish_odom>true</publish_odom>
+                <publish_odom_tf>true</publish_odom_tf>
+                <odometry_frame>odom</odometry_frame>
+
+                <command_topic>cmd_vel</command_topic>
+                <robot_base_frame>base_link</robot_base_frame>
+            </plugin>
+        </gazebo>
+
+        <!-- Laser scan -->
+        <gazebo reference="base_link_laser_joint">
+            <preserveFixedJoint>true</preserveFixedJoint>
+        </gazebo>
+
+        <gazebo reference="laser">
+            <sensor type="ray" name="head_hokuyo_sensor">
+                <pose>0 0 0 0 0 0</pose>
+                <visualize>true</visualize>
+                <update_rate>20</update_rate>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>720</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-3.141592</min_angle>
+                            <max_angle>3.141592</max_angle>
+                        </horizontal>
+                    </scan>
+                    <range>
+                        <min>0.2</min>
+                        <max>10.0</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
+                    <ros>
+                        <remapping>/laser/out:=/scan</remapping>
+                    </ros>
+                    <output_type>sensor_msgs/LaserScan</output_type>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+</robot>

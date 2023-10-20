@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- laser macro  -->
+    <xacro:macro name="laser_scanner" params="laser_scanner_name">
+        <link name="${laser_scanner_name}">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="file:///home/user/ros2_ws/src/barista_robot_description/meshes/hokuyo_urg_04lx.stl" scale="1 1 1" />
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="1.0"/>
+                <origin xyz="0 0 0"/>
+                <inertia ixx="0.0045" ixy="0" ixz="0" iyy="0.0045" iyz="0" izz="0.00225"/>
+            </inertial>
+
+            <visual>
+                <origin xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="file:///home/user/ros2_ws/src/barista_robot_description/meshes/hokuyo_urg_04lx.stl" scale="1 1 1" />
+                </geometry>
+            </visual>
+        </link>
+    </xacro:macro>
+
+</robot>
