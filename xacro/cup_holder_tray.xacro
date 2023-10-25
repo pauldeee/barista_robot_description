@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <xacro:arg name="tray_color_rviz" default="blue"/>
 
     <!-- cup holder macro -->
     <xacro:macro name="cup_holder_tray" params="tray_name tray_length tray_radius">
@@ -21,7 +22,7 @@
                 <geometry>
                     <cylinder length="${tray_length}" radius="${tray_radius}"/>
                 </geometry>
-                <material name="blue"/>
+                <material name="$(arg tray_color_rviz)"/>
             </visual>
         </link>
     </xacro:macro>

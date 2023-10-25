@@ -4,7 +4,6 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Axes1
         - /RobotModel1
         - /TF1
       Splitter Ratio: 0.5
@@ -60,51 +59,61 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_footprint:
+        barista_robot_base_footprint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        cup_holder:
+        barista_robot_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_caster:
+        barista_robot_cup_holder:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        laser:
+        barista_robot_front_caster:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_standoff:
+        barista_robot_laser:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        left_wheel:
+        barista_robot_left_front_standoff:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_caster:
+        barista_robot_left_rear_standoff:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_standoff:
+        barista_robot_left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_wheel:
+        barista_robot_rear_caster:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        barista_robot_right_front_standoff:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        barista_robot_right_rear_standoff:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        barista_robot_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -122,25 +131,31 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        base_footprint:
+        barista_robot_base_footprint:
           Value: true
-        base_link:
+        barista_robot_base_link:
           Value: true
-        cup_holder:
+        barista_robot_cup_holder:
           Value: true
-        front_caster:
+        barista_robot_front_caster:
           Value: true
-        laser:
+        barista_robot_laser:
           Value: true
-        left_standoff:
+        barista_robot_left_front_standoff:
           Value: true
-        left_wheel:
+        barista_robot_left_rear_standoff:
           Value: true
-        rear_caster:
+        barista_robot_left_wheel:
           Value: true
-        right_standoff:
+        barista_robot_odom:
           Value: true
-        right_wheel:
+        barista_robot_rear_caster:
+          Value: true
+        barista_robot_right_front_standoff:
+          Value: true
+        barista_robot_right_rear_standoff:
+          Value: true
+        barista_robot_right_wheel:
           Value: true
       Marker Scale: 0.25
       Name: TF
@@ -148,31 +163,35 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          base_footprint:
-            {}
-          cup_holder:
-            {}
-          front_caster:
-            {}
-          laser:
-            {}
-          left_standoff:
-            {}
-          left_wheel:
-            {}
-          rear_caster:
-            {}
-          right_standoff:
-            {}
-          right_wheel:
-            {}
+        barista_robot_odom:
+          barista_robot_base_footprint:
+            barista_robot_base_link:
+              barista_robot_cup_holder:
+                {}
+              barista_robot_front_caster:
+                {}
+              barista_robot_laser:
+                {}
+              barista_robot_left_front_standoff:
+                {}
+              barista_robot_left_rear_standoff:
+                {}
+              barista_robot_left_wheel:
+                {}
+              barista_robot_rear_caster:
+                {}
+              barista_robot_right_front_standoff:
+                {}
+              barista_robot_right_rear_standoff:
+                {}
+              barista_robot_right_wheel:
+                {}
       Update Interval: 1
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: base_link
+    Fixed Frame: barista_robot_base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -185,7 +204,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.3363332748413086
+      Distance: 1.469738483428955
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -195,15 +214,15 @@ Visualization Manager:
         X: 0
         Y: 0
         Z: 0
-      Focal Shape Fixed Size: true
+      Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8103976845741272
+      Pitch: 0.7853981852531433
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 0.8153941631317139
+      Yaw: 0.7853981852531433
     Saved: ~
 Window Geometry:
   Displays:
