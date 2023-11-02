@@ -24,7 +24,7 @@ def generate_launch_description():
 
 
     # sim time?
-    use_sim_time = False
+    use_sim_time = True
 
     # names
     robot_name_1 = "rick"
